@@ -52,5 +52,5 @@ void Library::addSong(const string& title, const string& singer)  // 매개변수로 
     Song newSong;                    // 새로운 노래 구조체 생성
     newSong.S_title = title;        // 제목 설정
     newSong.S_singer = singer;    // 가수 설정
-    SongList.push_back(newSong);    // 컨테이너에 추가
+    SongList.push_back(newSong);    // 컨테이너에 노래 추가
 }   
