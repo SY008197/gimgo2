@@ -47,11 +47,10 @@ private:                            // 노래에 대한 정보는 라이브러리 클래스에서�
 	void addSong(const string& title, const string& singer) // 멤버 함수 선언(노래추가)
 };
 //Library 클래스의 멤버 함수 정의(노래 추가)
-void Library::addSong(const string& title, const string& singer)  // 매개변수로 제목과 가수명을 받음
+void Library::addSong(const string& title, const string& singer)  // 매개변수로 노래제목과 가수명을 받음(이때 값은 상수로 고정시키고 참조만 한다)
 {
     Song newSong;                    // 새로운 노래 구조체 생성
     newSong.S_title = title;        // 제목 설정
     newSong.S_singer = singer;    // 가수 설정
     SongList.push_back(newSong);    // 컨테이너에 추가
 }   
-
