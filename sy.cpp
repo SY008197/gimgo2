@@ -1,5 +1,6 @@
-//Day1상영
+//Day1_상영
 /*
+* 목표설계
 저장된 노래
 검색 (제목 or 가수명으로 찾기)
 전체 목록
@@ -16,17 +17,18 @@
 프로그램 종료
 */
 
-//Day2상영
+//Day2_상영
 /*
-라이브러리 (관점: 책임자)
-전체 곡 데이터 관리
-곡 추가 / 검색 / 목록 제공
-즉, 노래에 대한 정보와 목록 관리 / 파일 경로 탐색, mp3파일 열기 등의 작업 X
+라이브러리 클래스 기본 틀 구축
+라이브러리 클래스 내부에 노래 구조체 설계
+벡터를 이용해 노래를 담을 컨테이너 생성
+*/
 
-콘솔UI (관점:사용자)
-메뉴 출력
-사용자 선택 처리
-라이브러리에 명령 전달
+//Day3_상영
+/*
+using namespace std; -> using std::string; 로 변경
+라이브러리 클래스 내부에 노래 추가 멤버 함수 선언
+라이브러리 클래스 외부에 노래 추가 멤버 함수 정의
 */
 
 #include <iostream>
@@ -45,7 +47,7 @@ private:                            // 노래에 대한 정보는 라이브러리 클래스에서�
 	void addSong(const string& title, const string& singer) // 멤버 함수 선언(노래추가)
 };
 //Library 클래스의 멤버 함수 정의(노래 추가)
-void Library::addSong(const string& title, const string& singer)  
+void Library::addSong(const string& title, const string& singer)  // 매개변수로 제목과 가수명을 받음
 {
     Song newSong;                    // 새로운 노래 구조체 생성
     newSong.S_title = title;        // 제목 설정
