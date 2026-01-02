@@ -44,7 +44,10 @@ private:                            // 노래에 대한 정보는 라이브러리 클래스에서�
         string S_singer;            // 가수
     };
     vector<Song> SongList;            // 노래를 담을 컨테이너
-	void addSong(const string& title, const string& singer) // 멤버 함수 선언(노래추가)
+
+    void addSong(const string& title, const string& singer) // 멤버 함수 선언(노래추가)
+
+    vector<Song> searchByTitle(const string& title)                // 멤버 함수 선언(제목 검색)
 };
 //Library 클래스의 멤버 함수 정의(노래 추가)
 void Library::addSong(const string& title, const string& singer)  // 매개변수로 노래제목과 가수명을 받음(이때 값은 상수로 고정시키고 참조만 한다)
@@ -54,3 +57,17 @@ void Library::addSong(const string& title, const string& singer)  // 매개변수로 
     newSong.S_singer = singer;    // 가수 설정
     SongList.push_back(newSong);    // 컨테이너에 노래 추가
 }   
+
+vector<Song> Library::searchByTitle(const string& title) //Library 클래스의 멤버 함수 정의(제목 검색)
+{
+    vector<Song> results;            // 검색 결과를 담을 컨테이너 생성
+    for (const auto& song : SongList) // SongList 컨테이너를 순회
+    {
+        if (song.S_title == title)    // 노래 제목이 검색어와 일치하는지 확인
+        {
+            results.push_back(song); // 일치하면 결과 컨테이너에 추가
+        }
+    }
+    return results;                // 검색 결과 반환
+}
+// 검색할때 대소문자 구분 없이 검색하는 기능 추가하기
