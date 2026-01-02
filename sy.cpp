@@ -42,8 +42,6 @@ private:                            // 노래에 대한 정보는 라이브러리 클래스에서�
         string S_singer;            // 가수
     };
     vector<Song> SongList;            // 노래를 담을 컨테이너
-
-	//void addSong(const string& title, const string& singer); // 노래 추가 함수
+    void addSong(const string& title, const string& singer) // 노래 추가
 };
-
-// SongList.push_back({ title, singer });         // 노래 추가
+//SongList.back({ title, singer });
