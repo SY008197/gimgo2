@@ -29,6 +29,8 @@
 using namespace std; -> using std::string; 로 변경
 라이브러리 클래스 내부에 노래 추가 멤버 함수 선언
 라이브러리 클래스 외부에 노래 추가 멤버 함수 정의
+라이브러리 클래스 내부에 제목으로 검색하는 멤버 함수 선언
+라이브러리 클래스 외부에 제목으로 검색하는 멤버 함수 정의
 */
 
 #include <iostream>
@@ -70,4 +72,4 @@ vector<Song> Library::searchByTitle(const string& title) //Library 클래스의 멤버
     }
     return results;                // 검색 결과 반환
 }
-// 검색할때 대소문자 구분 없이 검색하는 기능 추가하기
+// 검색할때 대소문자 구분 없이 검색하는 기능 추가
