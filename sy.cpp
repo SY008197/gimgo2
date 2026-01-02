@@ -72,4 +72,4 @@ vector<Song> Library::searchByTitle(const string& title) //Library 클래스의 멤버
     }
     return results;                // 검색 결과 반환
 }
-// 검색할때 대소문자 구분 없이 검색하는 기능 추가
+// 검색할때 대소문자 구분 없이 검색하는 기능 추가하기
