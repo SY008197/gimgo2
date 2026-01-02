@@ -32,7 +32,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
-using namespace std;
+using std::string;                  // string 타입 사용(namespace보다 이런식으로 습관화하기)
 class Library
 {
 private:                            // 노래에 대한 정보는 라이브러리 클래스에서만 접근
@@ -42,9 +42,8 @@ private:                            // 노래에 대한 정보는 라이브러리 클래스에서�
         string S_singer;            // 가수
     };
     vector<Song> SongList;            // 노래를 담을 컨테이너
-}
 
-class UI
-{
+	void addSong(const string& title, const string& singer); // 노래 추가 함수
+};
 
-}
+// SongList.push_back({ title, singer });         // 노래 추가
