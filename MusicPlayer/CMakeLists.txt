@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.16)
-project(MusicPlayer1 LANGUAGES CXX)
+project(MusicPlayer LANGUAGES CXX)
 
 include(qt.cmake)
 
