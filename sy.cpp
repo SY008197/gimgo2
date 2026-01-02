@@ -42,6 +42,14 @@ private:                            // 노래에 대한 정보는 라이브러리 클래스에서�
         string S_singer;            // 가수
     };
     vector<Song> SongList;            // 노래를 담을 컨테이너
-    void addSong(const string& title, const string& singer) // 노래 추가
+	void addSong(const string& title, const string& singer) // 멤버 함수 선언(노래추가)
 };
-//SongList.back({ title, singer });
+//Library 클래스의 멤버 함수 정의(노래 추가)
+void Library::addSong(const string& title, const string& singer)  
+{
+    Song newSong;                    // 새로운 노래 구조체 생성
+    newSong.S_title = title;        // 제목 설정
+    newSong.S_singer = singer;    // 가수 설정
+    SongList.push_back(newSong);    // 컨테이너에 추가
+}   
+
