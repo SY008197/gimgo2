@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.16)
-project(MusicPlayer LANGUAGES CXX)
+project(MusicPlayer1 LANGUAGES CXX)
 
 include(qt.cmake)
 
@@ -12,14 +12,15 @@ find_package(Qt${QT_VERSION_MAJOR}
         Core
         Gui
         Widgets
+        Multimedia
 )
 qt_standard_project_setup()
 
 set(PROJECT_SOURCES
     main.cpp
-    MusicPlayer.ui
-    MusicPlayer.h
-    MusicPlayer.cpp
+    MainWindow.ui
+    MainWindow.h
+    MainWindow.cpp
 )
 
 qt_add_executable(${PROJECT_NAME} ${PROJECT_SOURCES})
@@ -34,5 +35,6 @@ target_link_libraries(${PROJECT_NAME}
         Qt::Core
         Qt::Gui
         Qt::Widgets
+        Qt::Multimedia
 )
 

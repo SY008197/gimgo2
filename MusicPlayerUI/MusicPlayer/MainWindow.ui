@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <UI version="4.0" >
- <class>MusicPlayerClass</class>
- <widget class="QMainWindow" name="MusicPlayerClass" >
+ <class>MainWindowClass</class>
+ <widget class="QMainWindow" name="MainWindowClass" >
   <property name="objectName" >
-   <string notr="true">MusicPlayerClass</string>
+   <string notr="true">MainWindowClass</string>
   </property>
   <property name="geometry" >
    <rect>
@@ -14,7 +14,7 @@
    </rect>
   </property>
   <property name="windowTitle" >
-   <string>MusicPlayer</string>
+   <string>MainWindow</string>
   </property>  <widget class="QMenuBar" name="menuBar" />
   <widget class="QToolBar" name="mainToolBar" />
   <widget class="QWidget" name="centralWidget" />
