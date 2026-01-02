@@ -22,8 +22,6 @@
  </widget>
  <layoutDefault spacing="6" margin="11" />
  <pixmapfunction></pixmapfunction>
- <resources>
-   <include location="MusicPlayer.qrc"/>
- </resources>
+
  <connections/>
 </UI>
