@@ -3,9 +3,11 @@
 // 클래스 선언을 위해 필요한 헤더파일을 include함 / .cpp 파일에서는 구현만 하면 되므로 .cpp에서는 include하지 않아도 됨.
 // 대신 .cpp 파일에서 .h 파일을 include 해야 .h 파일에 있는 클래스를 사용할 수 있음.
 
+#include "Library.h" // Library 클래스 선언을 가져옴. ( MainWindow 클래스에서 Library 클래스 사용 가능하게 함 )
 #include <QMainWindow> // MainWindow 클래스를 QMainWindow로 상속하려면 반드시 필요함. (6번째 줄)
 #include <QMediaPlayer> // 음악 재생을 위해 QMediaPlayer를 사용 가능하게 함.
 #include <QAudioOutput> // QMediaPlayer의 소리를 실제 스피커 등으로 출력 가능하게 함.
+#include <QInputDialog>  // 추가: 입력 다이얼로그
 
 QT_BEGIN_NAMESPACE // Qt 전용 네임스페이스 (클래스 이름 충돌 방지)
 namespace Ui { class MainWindow; } // Ui 라는 네임스페이스안에 MainWindow 클래스가 있음을 선언하고 포인터 사용이 가능.
@@ -34,11 +36,16 @@ private:
     QAudioOutput* audioOutput; // 소리 출력과 볼륨 제어
     // 위 두 줄은 MainWindow.cpp의 생성자에서 연결됨
 
+	Library library; // Library 객체 추가
+	QString currentFilePath;   // 객체 추가: 재생할 파일 경로(마지막 추가된 곡)
+
 private slots:
 
 	void onDurationChanged(qint64 duration); // 재생바 최대값 업데이트 슬롯 함수 선언 ( 구현은 MainWindow.cpp에 있음)
 	void onPositionChanged(qint64 position); // 재생바 위치 실시간으로 이동하는 슬롯 함수 선언 ( 구현은 MainWindow.cpp에 있음)
 	void onSliderMoved(int position); // 사용자가 이동한 위치로 음악이 이동되는 슬롯 함수 선언 ( 구현은 MainWindow.cpp에 있음)
+	void onAddSongClicked(); // 새로 추가한 슬롯 ( 클릭하면 노래를 추가 할 수 있음)
+	void onSongSelected();   // 재생 목록 클릭 시
 
 };
 
