@@ -19,5 +19,6 @@ private:                            // 노래에 대한 정보는 라이브러�
 public:
     void addSong(const std::string& title, const std::string& singer, const std::string& filePath); // 멤버 함수 선언(노래추가)
     std::vector<Song> searchByTitle(const std::string& title);                // 멤버 함수 선언(제목 검색)
+	std::vector<Song> searchBySinger(const std::string& singer);                // 멤버 함수 선언(가수 검색)
 };
 
