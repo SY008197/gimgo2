@@ -1,8 +1,5 @@
 #include "Library.h"
-#include <string>
-#include <vector>
-using std::string;
-using std::vector;
+
 void Library::addSong(const string& title, const string& singer, const string& filePath)  // 매개변수로 노래제목, 가수명, 파일 경로를 받음(이때 값은 상수로 고정시키고 참조만 한다)
 {
     Song newSong;                    // 새로운 노래 구조체 생성
@@ -12,7 +9,7 @@ void Library::addSong(const string& title, const string& singer, const string& f
     SongList.push_back(newSong);    // 컨테이너에 노래 추가
 }   
 
-vector<Song> Library::searchByTitle(const string& title) //Library 클래스의 멤버 함수 정의(제목 검색)
+vector<Library::Song> Library::searchByTitle(const string& title) //Library 클래스의 멤버 함수 정의(제목 검색)
 {
     vector<Song> results;            // 검색 결과를 담을 컨테이너 생성
     for (const auto& song : SongList) // SongList 컨테이너를 순회
