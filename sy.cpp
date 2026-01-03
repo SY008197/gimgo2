@@ -1,8 +1,8 @@
-#include <iostream>
+#include "Library.h"
 #include <string>
 #include <vector>
-using std::string;                  // string 타입 사용(namespace보다 이런식으로 습관화하기)
-using std::vector;                  // vector 타입 사용
+using std::string;
+using std::vector;
 void Library::addSong(const string& title, const string& singer, const string& filePath)  // 매개변수로 노래제목, 가수명, 파일 경로를 받음(이때 값은 상수로 고정시키고 참조만 한다)
 {
     Song newSong;                    // 새로운 노래 구조체 생성
