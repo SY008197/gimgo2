@@ -43,6 +43,9 @@
        <property name="text">
         <string>재생</string>
        </property>
+       <property name="autoDefault">
+        <bool>false</bool>
+       </property>
       </widget>
      </item>
      <item>
@@ -61,6 +64,9 @@
        </property>
        <property name="text">
         <string>일시정지</string>
+       </property>
+       <property name="autoDefault">
+        <bool>false</bool>
        </property>
       </widget>
      </item>

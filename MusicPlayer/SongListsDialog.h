@@ -17,9 +17,9 @@ class SongListsDialog : public QDialog // SongListsDialog 메인 프로그램 흐름을 �
     Q_OBJECT // 시그널과 슬롯 기능을 사용하려면 클래스 안에 반드시 포함되어야 하는 매크로
 			 // .cpp에서 사용되는 connect() 호출을 가능하게 함.
 
-public: // 외부에서도 접근 가능한 접근 지정자
+public:
     explicit SongListsDialog(Library& libraryRef, QWidget* parent = nullptr); // =nullptr으로 부모 위젯이 없음을 기본값으로 설정함.
-													// QWidget을 부모 위젯으로 지정하지 않으며 SongListsDialog 는 최상위 창이 되므로 삭제되지 않기 위해 nullptr로 설정함.
+													                          // QWidget을 부모 위젯으로 지정하지 않으며 SongListsDialog 는 최상위 창이 되므로 삭제되지 않기 위해 nullptr로 설정함.
     ~SongListsDialog(); // 프로그램 종료 시 정리, main.cpp에서 app.quit() 호출 시 SongListsDialog 소멸자 실행
 
     void refreshList(); // 현재 Library에 들어 있는 노래 목록을 UI(QListWidget)에 다시 그려주는 함수 선언
@@ -36,7 +36,7 @@ private slots: // 접근 지정자 슬롯 클래스 내부에서만 사용 가능
     // 목록 추가 관련
     void onAddSongClicked(); // 사용자가 클릭하면 노래를 추가하는 슬롯 함수 선언 ( 구현은 SongListsDialog.cpp에 있음)
     void onCloseClicked(); // 사용자가 클리하면 SongListsDialog 윈도우를 닫은 슬롯 함수 선언 ( 구현은 SongListsDialog.cpp 에 있음 )
-    void onSongSelected();   // 재생 목록 클릭 시
+    void onSongSelected(); // 사용자가 노래를 클릭했을 때 노래의 행 번호를 가져오는 슬롯 함수 선언 ( 구현은 SongListsDialog.cpp 에 있음)
 
 
 private:

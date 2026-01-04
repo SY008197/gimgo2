@@ -4,9 +4,8 @@
 // 대신 .cpp 파일에서 .h 파일을 include 해야 .h 파일에 있는 클래스를 사용할 수 있음.
 
 #include "Library.h" // Library 클래스 선언을 가져옴. ( MainWindow 클래스에서 Library 클래스 사용 가능하게 함 )
-#include <QMainWindow> // MainWindow 클래스를 QMainWindow로 상속하려면 반드시 필요함. (6번째 줄)
-#include <QMediaPlayer> // 음악 재생을 위해 QMediaPlayer를 사용 가능하게 함.
-#include <QAudioOutput> // QMediaPlayer의 소리를 실제 스피커 등으로 출력 가능하게 함.
+#include <QMainWindow> // MainWindow 클래스를 QMainWindow로 상속하려면 반드시 필요함
+#include <QListWidgetItem> // 리스트를 추가 하기 위함.
 #include <QInputDialog>  // 추가: 입력 다이얼로그
 
 QT_BEGIN_NAMESPACE // Qt 전용 네임스페이스 (클래스 이름 충돌 방지)
@@ -25,28 +24,14 @@ public: // 외부에서도 접근 가능한 접근 지정자
 													// QWidget을 부모 위젯으로 지정하지 않으며 MainWindow는 최상위 창이 되므로 삭제되지 않기 위해 nullptr로 설정함.
 	~MainWindow(); // 프로그램 종료 시 정리, main.cpp에서 app.quit() 호출 시 MainWindow 소멸자 실행
 
-private slots: // 접근 지정자 슬롯 클래스 내부에서만 사용 가능
-	void onPlayClicked(); // 재생 버튼 클릭 시 실행되는 슬롯 함수 선언 (구현은 MainWindow.cpp에 있음)
-	void onPauseClicked(); // 일시정지 버튼 클릭 시 실행되는 슬롯 함수 선언 (구현은 MainWindow.cpp에 있음)
-
 private:
+
     Ui::MainWindow* ui; // MainWindow.ui 파일에 있는 모든 위젯 접근을 위해 선언
-
-    QMediaPlayer* player; // 음악 파일 로드, 재생, 일시정지 제어
-    QAudioOutput* audioOutput; // 소리 출력과 볼륨 제어
-    // 위 두 줄은 MainWindow.cpp의 생성자에서 연결됨
-
 	Library library; // Library 객체 추가
-	QString currentFilePath;   // 객체 추가: 재생할 파일 경로(마지막 추가된 곡)
 
 private slots:
 
-	void onDurationChanged(qint64 duration); // 재생바 최대값 업데이트 슬롯 함수 선언 ( 구현은 MainWindow.cpp에 있음)
-	void onPositionChanged(qint64 position); // 재생바 위치 실시간으로 이동하는 슬롯 함수 선언 ( 구현은 MainWindow.cpp에 있음)
-	void onSliderMoved(int position); // 사용자가 이동한 위치로 음악이 이동되는 슬롯 함수 선언 ( 구현은 MainWindow.cpp에 있음)
-	void onAddSongClicked(); // 사용자가 클릭하면 노래를 추가하는 슬롯 함수 선언 ( 구현은 MainWindow.cpp에 있음)
-	void onSongSelected();   // 재생 목록 클릭 시
-	void onAllSongsClicked();
+	void onLibraryItemClicked(QListWidgetItem* item); // 재생목록을 포함하고 있는 listWidgetLibrary 리스트 ( 구현은 MainWindow.cpp 에 있음 )
 
 };
 
