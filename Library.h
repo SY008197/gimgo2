@@ -2,8 +2,14 @@
 
 #include <string>
 #include <vector>
-
 // using std::string;과 같은 네임스페이스 지시문은 헤더 파일에 포함하지 않는 것이 좋음
+
+enum PlaylistAddResult // 플레이리스트에 노래 추가 결과 열거형
+{
+    Success,
+    NoSong,
+    NoPlaylist
+};
 
 class Library
 {
@@ -25,11 +31,13 @@ private:                            // 노래에 대한 정보는 라이브러�
 public:
 	// 노래 추가
     void addSong(const std::string& title, const std::string& singer, const std::string& filePath); // 멤버 함수 선언(노래추가)
+	bool hasSong(const std::string& title, const std::string& singer) const; //노래가 이미 존재하는지 확인
+    //예정 vector<SearchResult> searchByTitle(const string& keyword);
 
 	// 플레이리스트 관리
 	void createPlaylist(const std::string& playlistName); // 플레이리스트 생성
     void deletePlaylist(const std::string& playlistName); // 플레이리스트 삭제
-	bool addSongToPlaylist(const std::string& playlistName, const std::string& title, const std::string& singer); // 플레이리스트에 노래 추가
+    PlaylistAddResult addSongToPlaylist(const std::string& playlistName, const std::string& title, const std::string& singer); // 플레이리스트에 노래 추가
 	bool removeSongFromPlaylist(const std::string& playlistName, const std::string& title, const std::string& singer); // 플레이리스트에서 노래 제거
 
 	// 노래 검색

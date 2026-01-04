@@ -12,9 +12,16 @@ void Library::addSong(const string& title, const string& singer, const string& f
     newSong.S_filePath = filePath;        // 파일 경로 설정
     SongList.push_back(newSong);    // 컨테이너에 노래 추가
 }
-//중복된 노래 추가 방지 기능 추가 필요
-
-
+//중복된 노래 추가 방지 기능 추가
+bool Library::hasSong(const string& title, const string& singer) const //노래가 이미 존재하는지 확인(중복등록 방지용)
+{
+    for (const auto& song : SongList)
+    {
+        if (song.S_title == title && song.S_singer == singer)
+            return true;
+    }
+    return false;
+}
 
 // 플레이리스트 관리 멤버 함수 정의
 void Library::createPlaylist(const string& playlistName) //플레이리스트 생성
@@ -38,24 +45,24 @@ void Library::deletePlaylist(const string& playlistName) //플레이리스트 �
 }
 //플레이리스트가 없을때 예외처리 기능 추가 필요
 
-bool Library::addSongToPlaylist(const string& playlistName, const std::string& title, const std::string& singer) //플레이리스트에 노래 추가
+PlaylistAddResult Library::addSongToPlaylist(const string& playlistName, const std::string& title, const std::string& singer) //플레이리스트에 노래 추가
 {
-	for (auto& playlist : Playlists)    // 플레이리스트 찾기         
+    for (auto& playlist : Playlists)    // 플레이리스트 찾기         
     {
-		if (playlist.P_name == playlistName) //플레이리스트 이름이 일치하는지 확인
+        if (playlist.P_name == playlistName) //플레이리스트 이름이 일치하는지 확인
         {
-			for (const auto& song : SongList)   // 노래 찾기
+            for (const auto& song : SongList)   // 노래 찾기
             {
-				if (song.S_title == title && song.S_singer == singer)   //노래 제목과 가수가 일치하는지 확인
+                if (song.S_title == title && song.S_singer == singer)   //노래 제목과 가수가 일치하는지 확인
                 {
-					playlist.P_songs.push_back(song);   //플레이리스트에 노래 추가
-                    return true; // 성공
+                    playlist.P_songs.push_back(song);   //플레이리스트에 노래 추가
+                    return Success; // 성공 (UI가 이걸 입력받으면 노래 추가 완료)
                 }
             }
-            return false; // 노래 못 찾음
+			return NoSong; // 노래 없음 (UI가 이걸 입력받으면 파일 경로 입력 UI띄우기) 
         }
     }
-    return false; // 플레이리스트 없음
+	return NoPlaylist; // 이름에 맞는 플레이리스트 없음 (UI가 이걸 입력받으면 플레이리스트를 생성할건지 묻고 띄우기)
 }
 //플레이리스트나 노래가 없을때 예외처리 기능 추가 필요
 
@@ -100,7 +107,7 @@ vector<Library::Song> Library::searchByTitle(const string& title) //Library 클�
 vector<Library::Song> Library::searchBySinger(const string& singer) //Library 클래스의 멤버 함수 정의(가수 검색)
 {
     vector<Song> results;
-    for (const auto& song : Songlist)
+    for (const auto& song : SongList)
     {
         if (song.S_singer == singer)
         {
