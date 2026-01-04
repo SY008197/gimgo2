@@ -16,6 +16,12 @@ enum PlaylistRemoveResult // 플레이리스트에 노래 제거 결과 열거�
     Remove_NoSong,
     Remove_NoPlaylist
 };
+struct SongView   // UI에 전달하기 위한 표시용 구조체
+{
+    std::string title;
+    std::string singer;
+    std::string filePath;
+};
 class Library
 {
 private:                            // 노래에 대한 정보는 라이브러리 클래스에서만 접근
@@ -49,8 +55,12 @@ public:
     PlaylistAddResult addSongToPlaylist(const std::string& playlistName, const std::string& title, const std::string& singer); // 플레이리스트에 노래 추가
     PlaylistRemoveResult removeSongFromPlaylist(const std::string& playlistName, const std::string& title, const std::string& singer); // 플레이리스트에서 노래 제거
 
-	// 노래 검색
-    std::vector<Song> searchByTitle(const std::string& title);                // 멤버 함수 선언(제목 검색)
-	std::vector<Song> searchBySinger(const std::string& singer);                // 멤버 함수 선언(가수 검색)
+	// UI에 전달하기 위한 함수
+	std::vector<SongView> getAllSongs() const;  /* 기존에 사용하던 형태는 const를 사용해 Song에대한 직접 접근은 막을 수 있어도 UI에게 불필요한 정보까지 전달될 수 있음.
+                                                    따라서 SongView 구조체를 사용해 필요한 정보만 전달 (UI가 필요한 내용은 제목, 가수, 파일 경로 3가지면 충분함.)  */ 
+
+    // 노래 검색
+	std::vector<SongView> searchByTitleView(const std::string& title) const; // 멤버 함수 선언(제목 검색)
+	std::vector<SongView> searchBySingerView(const std::string& singer) const; // 멤버 함수 선언(가수 검색)
 };
 

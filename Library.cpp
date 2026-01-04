@@ -3,6 +3,50 @@
 using std::string;      // string 타입 사용(namespace보다 이런식으로 습관화하기)
 using std::vector;      // vector 타입 사용(네임스페이스 지시문은 헤더가 아닌 cpp파일에서 사용 권장)
 
+//UI에 전달하기 위한 함수 정의
+vector<SongView> Library::getAllSongs() const //모든 노래 정보를 SongView 형태로 반환
+{
+    vector<SongView> views; //SongView 컨테이너 생성
+    for (const auto& song : SongList) //SongList 컨테이너를 순회
+    {
+        SongView view;               //SongView 구조체 생성
+        view.title = song.S_title;   //제목 설정
+        view.singer = song.S_singer; //가수 설정
+        view.filePath = song.S_filePath; //파일 경로 설정
+        views.push_back(view);       //컨테이너에 추가
+    }
+    return views;                   //모든 노래 정보 반환
+}
+vector<SongView> Library::searchByTitleView(const string& title) const //제목으로 검색한 노래 정보를 SongView 형태로 반환
+{
+    vector<SongView> views; //SongView 컨테이너 생성
+    vector<Song> results = searchByTitle(title); //제목으로 검색한 노래들 가져오기
+    for (const auto& song : results) //검색 결과를 순회
+    {
+        SongView view;               //SongView 구조체 생성
+        view.title = song.S_title;   //제목 설정
+        view.singer = song.S_singer; //가수 설정
+        view.filePath = song.S_filePath; //파일 경로 설정
+        views.push_back(view);       //컨테이너에 추가
+    }
+    return views;                   //검색된 노래 정보 반환
+}
+vector<SongView> Library::searchBySingerView(const string& singer) const //가수로 검색한 노래 정보를 SongView 형태로 반환
+{
+    vector<SongView> views; //SongView 컨테이너 생성
+    vector<Song> results = searchBySinger(singer); //가수로 검색한 노래들 가져오기
+    for (const auto& song : results) //검색 결과를 순회
+    {
+        SongView view;               //SongView 구조체 생성
+        view.title = song.S_title;   //제목 설정
+        view.singer = song.S_singer; //가수 설정
+        view.filePath = song.S_filePath; //파일 경로 설정
+        views.push_back(view);       //컨테이너에 추가
+    }
+    return views;                   //검색된 노래 정보 반환
+}
+
+
 // 노래 추가 및 제거 멤버 함수 정의
 void Library::addSong(const string& title, const string& singer, const string& filePath)  // 매개변수로 노래제목, 가수명, 파일 경로를 받음(이때 값은 상수로 고정시키고 참조만 한다)
 {
@@ -103,35 +147,36 @@ PlaylistRemoveResult Library::removeSongFromPlaylist(const string& playlistName,
 
 
 // 노래 검색 멤버 함수 정의
-vector<Library::Song> Library::searchByTitle(const string& title) //Library 클래스의 멤버 함수 정의(제목 검색)
+vector<SongView> Library::searchByTitleView(const string& title) const
 {
-    vector<Song> results;            // 검색 결과를 담을 컨테이너 생성
+	vector<SongView> results; //검색 결과를 담을 컨테이너
 
-    string keyword = toLower(title);  // 검색어 표준화
+	string keyword = toLower(title); // 검색어 표준화
 
-    for (const auto& song : SongList) // SongList 컨테이너를 순회
+	for (const auto& song : SongList) //노래 목록 순회
     {
-        if (toLower(song.S_title) == keyword)    // 노래 제목이 검색어와 일치하는지 확인
+		if (toLower(song.S_title) == keyword) //제목이 검색어와 일치하는지 확인
         {
-            results.push_back(song); // 일치하면 결과 컨테이너에 추가
+			results.push_back({ song.S_title, song.S_singer,song.S_filePath }); // 일치하면 결과에 추가
         }
     }
-    return results;                // 검색 결과 반환
+	return results; //검색 결과 반환
 }
-vector<Library::Song> Library::searchBySinger(const string& singer) //Library 클래스의 멤버 함수 정의(가수 검색)
+
+vector<SongView> Library::searchBySingerView(const string& singer) //Library 클래스의 멤버 함수 정의(가수 검색)
 {
-    vector<Song> results;
+    vector<SongView> results; //검색 결과를 담을 컨테이너
 
-    string keyword = toLower(singer);  // 검색어 표준화
+    string keyword = toLower(singer); // 검색어 표준화
 
-    for (const auto& song : SongList)
+    for (const auto& song : SongList) //노래 목록 순회
     {
-        if (toLower(song.S_singer) == keyword)
+        if (toLower(song.S_singer) == keyword) //제목이 검색어와 일치하는지 확인
         {
-			results.push_back(song);
+            results.push_back({ song.S_title, song.S_singer,song.S_filePath }); // 일치하면 결과에 추가
         }
     }
-	return results;
+    return results; //검색 결과 반환
 }
 
 
