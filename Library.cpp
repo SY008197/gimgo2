@@ -95,9 +95,12 @@ bool Library::removeSongFromPlaylist(const string& playlistName, const std::stri
 vector<Library::Song> Library::searchByTitle(const string& title) //Library 클래스의 멤버 함수 정의(제목 검색)
 {
     vector<Song> results;            // 검색 결과를 담을 컨테이너 생성
+
+    string keyword = toLower(title);  // 검색어 표준화
+
     for (const auto& song : SongList) // SongList 컨테이너를 순회
     {
-        if (song.S_title == title)    // 노래 제목이 검색어와 일치하는지 확인
+        if (toLower(song.S_title) == keyword)    // 노래 제목이 검색어와 일치하는지 확인
         {
             results.push_back(song); // 일치하면 결과 컨테이너에 추가
         }
@@ -107,13 +110,29 @@ vector<Library::Song> Library::searchByTitle(const string& title) //Library 클�
 vector<Library::Song> Library::searchBySinger(const string& singer) //Library 클래스의 멤버 함수 정의(가수 검색)
 {
     vector<Song> results;
+
+    string keyword = toLower(singer);  // 검색어 표준화
+
     for (const auto& song : SongList)
     {
-        if (song.S_singer == singer)
+        if (toLower(song.S_singer) == keyword)
         {
 			results.push_back(song);
         }
     }
 	return results;
 }
-// 검색할때 대소문자 구분 없이 검색하는 기능 추가필요
+
+
+
+// 문자열을 소문자로 변환하는 헬퍼 함수 정의
+string Library::toLower(const string& str) const //문자열을 소문자로 변환하는 헬퍼 함수
+{
+    string lowerStr = str; // 입력 문자열을 복사
+    for (char& ch : lowerStr) // 문자열의 각 문자에 대해
+    {
+        ch = std::tolower(static_cast<unsigned char>(ch)); // 문자를 소문자로 변환
+    }
+    return lowerStr; // 변환된 문자열 반환
+}
+// 부분 일치 검색 기능, 띄어쓰기 무시 기능 등 추가 필요
