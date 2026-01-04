@@ -6,11 +6,16 @@
 
 enum PlaylistAddResult // 플레이리스트에 노래 추가 결과 열거형
 {
-    Success,
-    NoSong,
-    NoPlaylist
+    Add_Success,
+    Add_NoSong,
+    Add_NoPlaylist
 };
-
+enum PlaylistRemoveResult // 플레이리스트에 노래 제거 결과 열거형
+{
+    Remove_Success,
+    Remove_NoSong,
+    Remove_NoPlaylist
+};
 class Library
 {
 private:                            // 노래에 대한 정보는 라이브러리 클래스에서만 접근
@@ -32,8 +37,9 @@ private:                            // 노래에 대한 정보는 라이브러�
 	// 헬퍼 함수 선언
 	string toLower(const string& str) const; // 문자열을 소문자로 변환하는 헬퍼 함수
 public:
-	// 노래 추가
+	// 노래 추가 및 제거
     void addSong(const std::string& title, const std::string& singer, const std::string& filePath); // 멤버 함수 선언(노래추가)
+	void removeSong(const std::string& title, const std::string& singer); // 멤버 함수 선언(노래제거)
 	bool hasSong(const std::string& title, const std::string& singer) const; //노래가 이미 존재하는지 확인
     //예정 vector<SearchResult> searchByTitle(const string& keyword);
 
@@ -41,7 +47,7 @@ public:
 	void createPlaylist(const std::string& playlistName); // 플레이리스트 생성
     void deletePlaylist(const std::string& playlistName); // 플레이리스트 삭제
     PlaylistAddResult addSongToPlaylist(const std::string& playlistName, const std::string& title, const std::string& singer); // 플레이리스트에 노래 추가
-	bool removeSongFromPlaylist(const std::string& playlistName, const std::string& title, const std::string& singer); // 플레이리스트에서 노래 제거
+    PlaylistRemoveResult removeSongFromPlaylist(const std::string& playlistName, const std::string& title, const std::string& singer); // 플레이리스트에서 노래 제거
 
 	// 노래 검색
     std::vector<Song> searchByTitle(const std::string& title);                // 멤버 함수 선언(제목 검색)

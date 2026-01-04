@@ -3,7 +3,7 @@
 using std::string;      // string 타입 사용(namespace보다 이런식으로 습관화하기)
 using std::vector;      // vector 타입 사용(네임스페이스 지시문은 헤더가 아닌 cpp파일에서 사용 권장)
 
-// 노래 추가 멤버 함수 정의
+// 노래 추가 및 제거 멤버 함수 정의
 void Library::addSong(const string& title, const string& singer, const string& filePath)  // 매개변수로 노래제목, 가수명, 파일 경로를 받음(이때 값은 상수로 고정시키고 참조만 한다)
 {
     Song newSong;                    // 새로운 노래 구조체 생성
@@ -11,6 +11,17 @@ void Library::addSong(const string& title, const string& singer, const string& f
     newSong.S_singer = singer;    // 가수 설정
     newSong.S_filePath = filePath;        // 파일 경로 설정
     SongList.push_back(newSong);    // 컨테이너에 노래 추가
+}
+void Library::removeSong(const std::string& title, const std::string& singer)
+{
+    for (auto it = SongList.begin(); it != SongList.end(); ++it) //SongList 컨테이너를 순회
+    {
+        if (it->S_title == title && it->S_singer == singer) //노래 제목과 가수가 일치하는지 확인
+        {
+            SongList.erase(it); //일치하면 해당 노래 삭제
+            break;               //삭제 후 반복문 종료
+        }
+	}
 }
 //중복된 노래 추가 방지 기능 추가
 bool Library::hasSong(const string& title, const string& singer) const //노래가 이미 존재하는지 확인(중복등록 방지용)
@@ -56,17 +67,17 @@ PlaylistAddResult Library::addSongToPlaylist(const string& playlistName, const s
                 if (song.S_title == title && song.S_singer == singer)   //노래 제목과 가수가 일치하는지 확인
                 {
                     playlist.P_songs.push_back(song);   //플레이리스트에 노래 추가
-                    return Success; // 성공 (UI가 이걸 입력받으면 노래 추가 완료)
+                    return Add_Success; // 성공 (UI가 이걸 입력받으면 노래 추가 완료)
                 }
             }
-			return NoSong; // 노래 없음 (UI가 이걸 입력받으면 파일 경로 입력 UI띄우기) 
+			return Add_NoSong; // 노래 없음 (UI가 이걸 입력받으면 파일 경로 입력 UI띄우기) 
         }
     }
-	return NoPlaylist; // 이름에 맞는 플레이리스트 없음 (UI가 이걸 입력받으면 플레이리스트를 생성할건지 묻고 띄우기)
+	return Add_NoPlaylist; // 이름에 맞는 플레이리스트 없음 (UI가 이걸 입력받으면 플레이리스트를 생성할건지 묻고 띄우기)
 }
-//플레이리스트나 노래가 없을때 예외처리 기능 추가 필요
 
-bool Library::removeSongFromPlaylist(const string& playlistName, const std::string& title, const std::string& singer) //플레이리스트에서 노래 제거
+
+PlaylistRemoveResult Library::removeSongFromPlaylist(const string& playlistName, const std::string& title, const std::string& singer) //플레이리스트에서 노래 제거
 {
 	for (auto& playlist : Playlists)    // 플레이리스트 찾기
     {
@@ -79,15 +90,15 @@ bool Library::removeSongFromPlaylist(const string& playlistName, const std::stri
 				if (it->S_title == title && it->S_singer == singer) //노래 제목과 가수가 일치하는지 확인
                 {
 					songs.erase(it);    //플레이리스트에서 노래 제거
-                    return true; // 성공
+					return Remove_Success; // 성공 (UI가 이걸 입력받으면 노래 제거 완료)
                 }
             }
-            return false; // 노래 없음
+			return Remove_NoSong; // 노래 없음 (UI가 이걸 입력받으면 노래 목록 다시 보여주기)
         }
     }
-    return false; // 플레이리스트 없음
+	return Remove_NoPlaylist; // 플레이리스트 없음 (UI가 이걸 입력받으면 플레이리스트 목록 다시 보여주기)
 }
-//플레이리스트나 노래가 없을때 예외처리 기능 추가 필요
+
 
 
 
