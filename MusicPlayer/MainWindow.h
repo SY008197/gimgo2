@@ -44,8 +44,9 @@ private slots:
 	void onDurationChanged(qint64 duration); // 재생바 최대값 업데이트 슬롯 함수 선언 ( 구현은 MainWindow.cpp에 있음)
 	void onPositionChanged(qint64 position); // 재생바 위치 실시간으로 이동하는 슬롯 함수 선언 ( 구현은 MainWindow.cpp에 있음)
 	void onSliderMoved(int position); // 사용자가 이동한 위치로 음악이 이동되는 슬롯 함수 선언 ( 구현은 MainWindow.cpp에 있음)
-	void onAddSongClicked(); // 새로 추가한 슬롯 ( 클릭하면 노래를 추가 할 수 있음)
+	void onAddSongClicked(); // 사용자가 클릭하면 노래를 추가하는 슬롯 함수 선언 ( 구현은 MainWindow.cpp에 있음)
 	void onSongSelected();   // 재생 목록 클릭 시
+	void onAllSongsClicked();
 
 };
 

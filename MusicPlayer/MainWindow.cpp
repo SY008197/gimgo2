@@ -1,5 +1,6 @@
 ﻿#include <QListWidgetItem> // QListWidgetItem 클래스 (재생목록)
 #include <QFileDialog>  // 파일 선택 다이얼로그
+#include "SongListsDialog.h" //
 #include <QMessageBox> // 메시지 박스
 #include "MainWindow.h" // MainWindow.h에서 선언한 MainWindow 클래스 선언을 가져옴. ( MainWindow 클래스의 정의는 MainWindow.cpp에 있음 ) 선언 =/= 정의
 #include "ui_MainWindow.h" // MainWindow.ui 파일을 컴파일하면 자동으로 생성됨. 주로 버튼, 슬라이더 같은 UI 객체들이 들어 있음.
@@ -20,10 +21,7 @@ MainWindow::MainWindow(QWidget* parent) // #include "MainWindow.h"에서 가져�
     audioOutput = new QAudioOutput(this); // 소리를 내는 장치를 제어하는 클래스 ( 볼륨, 출력 장치, 상태 등을 관리 가능)
 	player = new QMediaPlayer(this); // 오디오를 재생하는 클래스, 소리 출력을 위해 QAudioOutput 객체와 연결이 필요함.
 	player->setAudioOutput(audioOutput); // QAudioOutput 객체를 QMediaPlayer 객체와 연결. player 재생하면 audioOutput 통해 소리가 출력됨.
-    // player->play(); 노래 재생.
-    // audioOutput->setVolume(0.5); 볼륨 50%로 설정.
 
-    // 음악 파일 주소에 한글 포함 시 오류 발생할 수 있음. (테스트)
 
     // connect() 함수는 사용자가 특정 동작을 했을 때 호출되는 시그널과 슬롯을 연결해주는 Qt에서 제공하는 함수.
 	// 재생 버튼 클릭 시
@@ -56,9 +54,13 @@ MainWindow::MainWindow(QWidget* parent) // #include "MainWindow.h"에서 가져�
 		this, &MainWindow::onAddSongClicked); // &MainWindow::onAddSongClicked(사용자의 동작에 반응하는 슬롯)
 	// btnAddSong 버튼을 클릭하면 $QPushButton::clicked 알림이 발생하고, $MainWindow::onAddSongClicked 슬롯이 실행된다.
 
+    // 사용자가 노래 클릭 시
 	connect(ui->listWidgetSongs, &QListWidget::itemClicked, // &QListWidget::itemClicked(재생 목록에서 사용자가 노래를 선택했을 때 발생하는 시그널)
 		this, &MainWindow::onSongSelected); // &MainWindow::onSongSelected(시그널의 정보를 받고 선택된 노래로 재생하는 슬롯)
 	// 재생 목록에서 사용자가 노래를 선택하면 $QListWidget::itemClicked 시그널이 신호를 주고, $MainWindow::onSongSelected 슬롯이 선택된 노래로 재생한다.
+
+    connect(ui->btnAllSongs, &QPushButton::clicked,
+        this, &MainWindow::onAllSongsClicked);
 }
 
 MainWindow::~MainWindow()
@@ -144,6 +146,15 @@ void MainWindow::onSongSelected()
 	// 로컬 파일에서 노래를 재생하기 위해 QMediaPlayer 객체에 노래를 넘겨줌
 }
 
+void MainWindow::onAllSongsClicked()
+{
+    hide();
+
+    SongListsDialog dlg(library, this);  // ✅ MainWindow의 library 넘김
+    dlg.exec();
+
+    show();
+}
 
 
 

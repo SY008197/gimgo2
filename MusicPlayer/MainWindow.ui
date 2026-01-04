@@ -16,6 +16,25 @@
   <widget class="QWidget" name="centralWidget">
    <layout class="QVBoxLayout" name="verticalLayout">
     <item>
+     <widget class="QPushButton" name="btnAllSongs">
+      <property name="minimumSize">
+       <size>
+        <width>0</width>
+        <height>40</height>
+       </size>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>14</pointsize>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>전체 목록</string>
+      </property>
+     </widget>
+    </item>
+    <item>
      <widget class="QListWidget" name="listWidgetSongs">
       <property name="autoFillBackground">
        <bool>false</bool>

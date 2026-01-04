@@ -22,14 +22,21 @@ qt_standard_project_setup()
 
 set(PROJECT_SOURCES
     main.cpp
-    MainWindow.ui
-    MainWindow.h
     MainWindow.cpp
+    MainWindow.h
     Library.h
     Library.cpp
+    MainWindow.ui
+    SongListsDialog.h
+    SongListsDialog.cpp
+    SongListsDialog.ui
 )
 
 qt_add_executable(${PROJECT_NAME} ${PROJECT_SOURCES})
+# qt_add_executable(...) 바로 아래에 추가
+get_target_property(_tgt_srcs ${PROJECT_NAME} SOURCES)
+message(STATUS "TARGET SOURCES = ${_tgt_srcs}")
+message(STATUS "PROJECT_SOURCES = ${PROJECT_SOURCES}")
 
 set_target_properties(${PROJECT_NAME}
     PROPERTIES
@@ -43,4 +50,8 @@ target_link_libraries(${PROJECT_NAME}
         Qt::Widgets
         Qt::Multimedia
 )
+
+if (MSVC)
+    add_compile_options(/utf-8)
+endif()
 
