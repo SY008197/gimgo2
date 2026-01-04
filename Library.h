@@ -29,8 +29,8 @@ public:
 	// 플레이리스트 관리
 	void createPlaylist(const std::string& playlistName); // 플레이리스트 생성
     void deletePlaylist(const std::string& playlistName); // 플레이리스트 삭제
-	void addSongToPlaylist(const std::string& playlistName, const std::string& title, const std::string& singer); // 플레이리스트에 노래 추가
-	void removeSongFromPlaylist(const std::string& playlistName, const std::string& title, const std::string& singer); // 플레이리스트에서 노래 제거
+	bool addSongToPlaylist(const std::string& playlistName, const std::string& title, const std::string& singer); // 플레이리스트에 노래 추가
+	bool removeSongFromPlaylist(const std::string& playlistName, const std::string& title, const std::string& singer); // 플레이리스트에서 노래 제거
 
 	// 노래 검색
     std::vector<Song> searchByTitle(const std::string& title);                // 멤버 함수 선언(제목 검색)

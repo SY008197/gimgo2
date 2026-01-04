@@ -38,7 +38,7 @@ void Library::deletePlaylist(const string& playlistName) //플레이리스트 �
 }
 //플레이리스트가 없을때 예외처리 기능 추가 필요
 
-void Library::addSongToPlaylist(const string& playlistName, const std::string& title, const std::string& singer) //플레이리스트에 노래 추가
+bool Library::addSongToPlaylist(const string& playlistName, const std::string& title, const std::string& singer) //플레이리스트에 노래 추가
 {
 	for (auto& playlist : Playlists)    // 플레이리스트 찾기         
     {
@@ -59,7 +59,7 @@ void Library::addSongToPlaylist(const string& playlistName, const std::string& t
 }
 //플레이리스트나 노래가 없을때 예외처리 기능 추가 필요
 
-void Library::removeSongFromPlaylist(const string& playlistName, const std::string& title, const std::string& singer) //플레이리스트에서 노래 제거
+bool Library::removeSongFromPlaylist(const string& playlistName, const std::string& title, const std::string& singer) //플레이리스트에서 노래 제거
 {
 	for (auto& playlist : Playlists)    // 플레이리스트 찾기
     {
