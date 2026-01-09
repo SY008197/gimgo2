@@ -40,13 +40,16 @@ private:                            // 노래에 대한 정보는 라이브러�
         std::vector<Song> P_songs;        // 플레이리스트에 담긴 노래들
 	};
 	std::vector<Playlist> Playlists;        // 플레이리스트를 담을 컨테이너
-	// 헬퍼 함수 선언
+	// 문자열 변경 헬퍼 함수 선언
 	std::string toLower(const string& str) const; // 문자열을 소문자로 변환하는 헬퍼 함수
+    
+	// 노래 존재 여부 확인 헬퍼 함수
+    bool hasSong(const std::string& title, const std::string& singer) const; //노래가 이미 존재하는지 확인
 public:
 	// 노래 추가 및 제거
     void addSong(const std::string& title, const std::string& singer, const std::string& filePath); // 멤버 함수 선언(노래추가)
 	void removeSong(const std::string& title, const std::string& singer); // 멤버 함수 선언(노래제거)
-	bool hasSong(const std::string& title, const std::string& singer) const; //노래가 이미 존재하는지 확인
+	
     //예정 vector<SearchResult> searchByTitle(const string& keyword);
 
 	// 플레이리스트 관리
