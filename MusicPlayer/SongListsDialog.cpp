@@ -132,11 +132,11 @@ void SongListsDialog::onSongSelected()
     int index = ui->listWidgetSongs->currentRow(); //index에서 사용자가 선택한 노래의 행 번호를 가져옴 (0부터 시작)
     if (index < 0) return;
 
-    const auto& songs = library.getSongs(); // Library 클래스의 getSongs() 멤버 함수를 호출하여 노래 목록을 가져옴
+    const auto& songs = library.getAllSongs(); // Library 클래스의 getSongs() 멤버 함수를 호출하여 노래 목록을 가져옴
 	// private 에 넣으면 접근 불가. 그래서 public 으로 바꿈.
     if (index >= static_cast<int>(songs.size())) return; // 사용자가 index 범위를 벗어난 노래를 선택 못하게 함
 
-    currentFilePath = QString::fromStdString(songs[index].S_filePath);
+    currentFilePath = QString::fromStdString(songs[index].filePath); //ㅡㅡㅡㅡㅡ songview 클래스에 s.filePath 없음
     // 사용자가 선택한 노래 파일 경로를 Qt에서 사용하기위해 변환하는 과정
     player->setSource(QUrl::fromLocalFile(currentFilePath)); 
     // 로컬 파일에서 노래를 재생하기 위해 QMediaPlayer 객체에 노래를 넘겨줌
@@ -152,13 +152,13 @@ void SongListsDialog::refreshList() // 노래를 추가하고 메인화면으로 나갈 때 기존
                                     // 다시 재생 목록 들어갔을 때 라이브러리를 순회 하며 이미 추가한 노래는 바로 리스트에 띄우기
 {
     ui->listWidgetSongs->clear();                            // 기존 화면 목록 전부 삭제
-    const auto& songs = library.getSongs();                  // 라이브러리의 노래 목록 가져오기
+    const auto& songs = library.getAllSongs();                  // 라이브러리의 노래 목록 가져오기
 
     for (const auto& s : songs)                              // 모든 노래 순회
     {
         ui->listWidgetSongs->addItem(                        // 화면에 한 줄씩 추가
-            QString::fromStdString(s.S_title) + " - " +
-            QString::fromStdString(s.S_singer)
+            QString::fromStdString(s.title) + " - " + // S.title 에서 s.title로 변경
+            QString::fromStdString(s.singer)
         );
     }
 }
