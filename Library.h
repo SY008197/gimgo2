@@ -6,15 +6,15 @@
 
 enum class PlaylistAddResult // 플레이리스트에 노래 추가 결과 열거형
 {
-    SUCCESS,
-    NOSONG,
-    NOPLAYLIST
+    ADD_SUCCESS,
+    ADD_NOSONG,
+    ADD_NOPLAYLIST
 };
 enum class PlaylistRemoveResult // 플레이리스트에 노래 제거 결과 열거형
 {
-    SUCCESS,
-    NOSONG,
-    NOPLAYLIST
+    REMOVE_SUCCESS,
+    REMOVE_NOSONG,
+    REMOVE_NOPLAYLIST
 };
 struct SongView   // UI에 전달하기 위한 표시용 구조체
 {
