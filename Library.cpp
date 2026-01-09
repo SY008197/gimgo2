@@ -111,13 +111,13 @@ PlaylistAddResult Library::addSongToPlaylist(const string& playlistName, const s
                 if (song.S_title == title && song.S_singer == singer)   //노래 제목과 가수가 일치하는지 확인
                 {
                     playlist.P_songs.push_back(song);   //플레이리스트에 노래 추가
-                    return Add_Success; // 성공 (UI가 이걸 입력받으면 노래 추가 완료)
+                    return PlaylistAddResult::SUCCESS; // 성공 (UI가 이걸 입력받으면 노래 추가 완료)
                 }
             }
-			return Add_NoSong; // 노래 없음 (UI가 이걸 입력받으면 파일 경로 입력 UI띄우기) 
+			return PlaylistAddResult::NOSONG; // 노래 없음 (UI가 이걸 입력받으면 파일 경로 입력 UI띄우기) 
         }
     }
-	return Add_NoPlaylist; // 이름에 맞는 플레이리스트 없음 (UI가 이걸 입력받으면 플레이리스트를 생성할건지 묻고 띄우기)
+	return PlaylistAddResult::NOPLAYLIST; // 이름에 맞는 플레이리스트 없음 (UI가 이걸 입력받으면 플레이리스트를 생성할건지 묻고 띄우기)
 }
 
 
@@ -134,13 +134,13 @@ PlaylistRemoveResult Library::removeSongFromPlaylist(const string& playlistName,
 				if (it->S_title == title && it->S_singer == singer) //노래 제목과 가수가 일치하는지 확인
                 {
 					songs.erase(it);    //플레이리스트에서 노래 제거
-					return Remove_Success; // 성공 (UI가 이걸 입력받으면 노래 제거 완료)
+					return PlaylistRemoveResult::SUCCESS; // 성공 (UI가 이걸 입력받으면 노래 제거 완료)
                 }
             }
-			return Remove_NoSong; // 노래 없음 (UI가 이걸 입력받으면 노래 목록 다시 보여주기)
+			return PlaylistRemoveResult::NOSONG; // 노래 없음 (UI가 이걸 입력받으면 노래 목록 다시 보여주기)
         }
     }
-	return Remove_NoPlaylist; // 플레이리스트 없음 (UI가 이걸 입력받으면 플레이리스트 목록 다시 보여주기)
+	return PlaylistRemoveResult::NOPLAYLIST; // 플레이리스트 없음 (UI가 이걸 입력받으면 플레이리스트 목록 다시 보여주기)
 }
 
 

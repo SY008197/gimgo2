@@ -4,17 +4,17 @@
 #include <vector>
 // using std::string;과 같은 네임스페이스 지시문은 헤더 파일에 포함하지 않는 것이 좋음
 
-enum PlaylistAddResult // 플레이리스트에 노래 추가 결과 열거형
+enum class PlaylistAddResult // 플레이리스트에 노래 추가 결과 열거형
 {
-    Add_Success,
-    Add_NoSong,
-    Add_NoPlaylist
+    SUCCESS,
+    NOSONG,
+    NOPLAYLIST
 };
-enum PlaylistRemoveResult // 플레이리스트에 노래 제거 결과 열거형
+enum class PlaylistRemoveResult // 플레이리스트에 노래 제거 결과 열거형
 {
-    Remove_Success,
-    Remove_NoSong,
-    Remove_NoPlaylist
+    SUCCESS,
+    NOSONG,
+    NOPLAYLIST
 };
 struct SongView   // UI에 전달하기 위한 표시용 구조체
 {
