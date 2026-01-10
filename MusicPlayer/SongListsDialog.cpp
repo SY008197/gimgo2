@@ -44,7 +44,7 @@ SongListsDialog::SongListsDialog(Library& libraryRef, QWidget* parent)
             }
         };
 
-    // ? music 폴더 안 파일명만 적으면 됨
+    //  music 폴더 안 파일명만 적으면 됨
     addIfExists("Lose My Mind", "Don Toliver", "Lose My Mind - Don Toliver.mp3");
     addIfExists("Baddest", "K/DA", "Baddest - KDA.mp3");
     addIfExists("High Hopes", "Panic! At the Disco", "Panic! At the Disco - High Hopes.mp3");
