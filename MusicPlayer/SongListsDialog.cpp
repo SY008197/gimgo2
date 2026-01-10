@@ -54,7 +54,7 @@ SongListsDialog::SongListsDialog(Library& libraryRef, QWidget* parent)
     addIfExists("A Bar Song", "Shaboozey", "A Bar Song - Shaboozey.mp3");
     addIfExists("Dangerously", "Charlie Puth", "Dangerously - Charlie Puth.mp3");
     addIfExists("Attention", "Charlie Puth", "Attention - Charlie Puth.mp3");
-    addIfExists("POP/STARS", "K/DA", "POPSTARS - KDA.mp3");
+    addIfExists("POP/STARS", "K/DA", "POPSTARS - KDA.mp3"); 
 
     //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ임시
 
@@ -266,7 +266,7 @@ void SongListsDialog::onSearchClicked()
 
     std::vector<SongView> results; //노래가 담겨있는 SongList 준비
 
-    const bool byTitle = (ui->comboSearchType->currentText() == QStringLiteral("Title")); // 검색 타입이 제목인지, 가수인지 인식하는 단계
+    const bool byTitle = (ui->comboSearchType->currentIndex() == 0); // 검색 타입이 제목인지, 가수인지 인식하는 단계
     if (byTitle)
         results = library.searchByTitleView(q.toStdString()); // 제목 검색으로 Library의 SongList를 검색해서 vector<SongView>로 반환
     else
