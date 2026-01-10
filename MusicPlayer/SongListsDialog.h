@@ -38,6 +38,11 @@ private slots: // 접근 지정자 슬롯 클래스 내부에서만 사용 가능
     void onCloseClicked(); // 사용자가 클리하면 SongListsDialog 윈도우를 닫은 슬롯 함수 선언 ( 구현은 SongListsDialog.cpp 에 있음 )
     void onSongSelected(); // 사용자가 노래를 클릭했을 때 노래의 행 번호를 가져오는 슬롯 함수 선언 ( 구현은 SongListsDialog.cpp 에 있음)
 
+    // 검색 관련
+    void onSearchTextChanged(const QString& text); // 타이핑 즉시 필터링되는 함수 선언
+    void onSearchClicked(); // 사용자가 클릭하면 노래를 검색하는 슬롯 함수 선언 ( 구현은 SongListsDialog.cpp에 있음)
+    void onClearSearchClicked(); // 사용자가 클릭하면 필터를 초기화하는 슬롯 함수 선언 ( 구현은 SongListsDialog.cpp에 있음)
+
 
 private:
 
@@ -47,5 +52,10 @@ private:
 
     QMediaPlayer* player = nullptr;
     QAudioOutput* audioOutput = nullptr;
+
+    void refreshList(const std::vector<SongView>& songsToShow); // 오버로드(표시할 목록)
+
+
+    std::vector<SongView> currentDisplayedSongs; // 현재 리스트에 표시중인 목록
 
 };
