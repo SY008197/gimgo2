@@ -3,7 +3,7 @@
 using std::string;      // string 타입 사용(namespace보다 이런식으로 습관화하기)
 using std::vector;      // vector 타입 사용(네임스페이스 지시문은 헤더가 아닌 cpp파일에서 사용 권장)
 
-//UI에 전달하기 위한 함수 정의
+// UI에 전달하기 위한 함수 정의
 vector<SongView> Library::getAllSongs() const //모든 노래 정보를 SongView 형태로 반환
 {
     vector<SongView> views; //SongView 컨테이너 생성
