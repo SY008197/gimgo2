@@ -30,6 +30,9 @@ set(PROJECT_SOURCES
     SongListsDialog.h
     SongListsDialog.cpp
     SongListsDialog.ui
+    PlayerWindow.cpp
+    PlayerWindow.h
+    PlayerWindow.ui
 )
 
 qt_add_executable(${PROJECT_NAME} ${PROJECT_SOURCES})
@@ -54,4 +57,14 @@ target_link_libraries(${PROJECT_NAME}
 if (MSVC)
     add_compile_options(/utf-8)
 endif()
+
+qt6_add_resources(APP_ICONS
+    ${CMAKE_CURRENT_SOURCE_DIR}/icons.qrc
+)
+
+target_sources(${PROJECT_NAME} PRIVATE
+    ${APP_ICONS}
+)
+
+message(STATUS "APP_ICONS = ${APP_ICONS}")
 

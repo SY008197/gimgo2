@@ -16,6 +16,7 @@ SongListsDialog::SongListsDialog(Library& libraryRef, QWidget* parent)
     ui->setupUi(this);
     setWindowTitle(QStringLiteral(u"\uC804\uCCB4 \uBAA9\uB85D")); // 전체 목록 (한글 오류)
 
+
     audioOutput = new QAudioOutput(this); // 소리를 내는 장치를 제어하는 클래스 ( 볼륨, 출력 장치, 상태 등을 관리 가능)
     player = new QMediaPlayer(this); // 오디오를 재생하는 클래스, 소리 출력을 위해 QAudioOutput 객체와 연결이 필요함.
     player->setAudioOutput(audioOutput); // QAudioOutput 객체를 QMediaPlayer 객체와 연결. player 재생하면 audioOutput 통해 소리가 출력됨.
@@ -48,13 +49,15 @@ SongListsDialog::SongListsDialog(Library& libraryRef, QWidget* parent)
     addIfExists("Lose My Mind", "Don Toliver", "Lose My Mind - Don Toliver.mp3");
     addIfExists("Baddest", "K/DA", "Baddest - KDA.mp3");
     addIfExists("High Hopes", "Panic! At the Disco", "Panic! At the Disco - High Hopes.mp3");
-    addIfExists("See You Again ft.Charlie Puth", "Wiz Khalifa", "See You Again ft. Charlie Puth - Wiz Khalifa.mp3");
+    addIfExists("See You Again", "Wiz Khalifa (ft. Charlie Puth)", "See You Again - Wiz Khalifa (ft. Charlie Puth).mp3");
     addIfExists("MILLION DOLLAR BABY", "Tommy Richman", "MILLION DOLLAR BABY - Tommy Richman.mp3");
     addIfExists("Moonlight", "Kali Uchis", "Moonlight - Kali Uchis.mp3");
     addIfExists("A Bar Song", "Shaboozey", "A Bar Song - Shaboozey.mp3");
     addIfExists("Dangerously", "Charlie Puth", "Dangerously - Charlie Puth.mp3");
     addIfExists("Attention", "Charlie Puth", "Attention - Charlie Puth.mp3");
-    addIfExists("POP/STARS", "K/DA", "POPSTARS - KDA.mp3"); 
+    addIfExists("POP/STARS", "K/DA", "POPSTARS - KDA.mp3");
+    addIfExists("I Ain't Worried", "OneRepublic", "I Ain't Worried - OneRepublic.mp3");
+    addIfExists("Sunflower", "Post Malone", "POPSTARS - Sunflower - Post Malone.mp3");
 
     //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ임시
 
@@ -62,36 +65,6 @@ SongListsDialog::SongListsDialog(Library& libraryRef, QWidget* parent)
 
     // connect() 함수는 사용자가 특정 동작을 했을 때 호출되는 시그널과 슬롯을 연결해주는 Qt에서 제공하는 함수.
  
-
-    // 재생 버튼 클릭 시
-    // btnPlay 버튼을 클릭하면 $PushButton::clicked 알림이 발생하고, $SongListsDialog::onPlayClicked 슬롯이 실행된다.
-    connect(ui->btnPlay, &QPushButton::clicked, // &QPushButton::clicked(사용자의 특정 동작 시그널)
-        this, &SongListsDialog::onPlayClicked); // &SongListsDialog::onPlayClicked(사용자의 동작에 반응하는 슬롯)
-
-
-    // 일시정지 버튼 클릭 시
-    // btnPause 버튼을 클릭하면 $QPushButton::clicked 알림이 발생하고, $SongListsDialog::onPauseClicked 슬롯이 실행된다.
-    connect(ui->btnPause, &QPushButton::clicked, // $QPushButton::clicked(사용자의 특정 동작 시그널)
-        this, &SongListsDialog::onPauseClicked); // &SongListsDialog::onPauseClicked(사용자의 동작에 반응하는 슬롯)
-    
-
-    // 재생 길이 변경 시
-    // 노래를 재생하거나 바꾸면 $QMediaPlayer::durationChanged 시그널이 신호를 주고, $SongListsDialog::onDurationChanged 슬롯이 실행된다.
-    connect(player, &QMediaPlayer::durationChanged, // &QMediaPlayer::durationChanged(재생하는 노래의 길이를 파악하는 시그널)
-        this, &SongListsDialog::onDurationChanged); // $SongListsDialog::onDurationChanged(파악한 노래 길이로 재생바의 길이를 변경하는 슬롯)
-
-
-    // 노래가 재생될 때 노래의 위치 변경 시
-    // 노래가 재생될 때 노래의 위치를 계속 파악하여 $QMediaPlayer::positionChanged 시그널이 신호를 주고, $SongListsDialog::onPositionChanged 슬롯이 재생바의 위치를 바꿔준다.
-    connect(player, &QMediaPlayer::positionChanged, // &QMediaPlayer::positionChanged(현재 재생되는 노래의 위치를 파악하는 시그널)
-        this, &SongListsDialog::onPositionChanged); // &SongListsDialog::onPositionChanged(시그널의 정보를 받고 재생바의 위치를 바꾸는 슬롯)
-
-
-    // 슬라이더를 사용자가 움직였을 시
-    // 사용자가 재생바를 움직이면 $QSlider::sliderMoved 시그널이 신호를 주고, $SongListsDialog::onSliderMoved 슬롯이 노래 재생 위치를 바꿔준다.
-    connect(ui->sliderPosition, &QSlider::sliderMoved, // &QSlider::sliderMoved(사용자가 재생바를 움직일 때 실시간으로 바뀌는 슬라이더의 위치를 알려주는 시그널)
-        this, &SongListsDialog::onSliderMoved); // &SongListsDialog::onSliderMoved(시그널의 정보를 받고 노래 재생 위치를 바꾸는 슬롯 )
-
 
     // 노래를 사용자가 직접 선택 했을 때
     // 재생 목록에서 사용자가 노래를 선택하면 $QListWidget::itemClicked 시그널이 신호를 주고, $MainWindow::onSongSelected 슬롯이 선택된 노래로 재생한다.
@@ -134,67 +107,44 @@ SongListsDialog::~SongListsDialog()
     delete ui;
 }
 
-// 재생 버튼 함수
-void SongListsDialog::onPlayClicked() // 사용자의 신호를 시그널로 받고 실행되는 슬롯 함수
-{
-    if (currentFilePath.isEmpty()) {
-        QMessageBox::warning(this,
-            QStringLiteral(u"\uC624\uB958"),                 // "오류"
-            QStringLiteral(u"\uBA3C\uC800 \uB178\uB798\uB97C \uC120\uD0DD\uD574\uC8FC\uC138\uC694.")); // "먼저 노래를 선택해주세요."
-        return;
-    }
-    player->play(); // play()함수는 QMediaPlayer 클래스의 함수로 음악 재생을 시작함.
-}
-
-// 일시 정지 함수
-void SongListsDialog::onPauseClicked() // 사용자의 신호를 시그널로 받고 실행되는 슬롯 함수
-                                       // pause()함수는 QMediaPlayer 클래스의 함수로 음악 재생을 일시정지함.
-{
-    if (currentFilePath.isEmpty()) { // 만약 노래가 추가되지 않았다면 띄우는 메시지
-        QMessageBox::warning(this,
-            QStringLiteral(u"\uC624\uB958"),                 // "오류"
-            QStringLiteral(u"\uBA3C\uC800 \uB178\uB798\uB97C \uC120\uD0DD\uD574\uC8FC\uC138\uC694.")); // "먼저 노래를 선택해주세요."
-        return;
-    }
-    player->pause();
-}
-
-// 재생바 길이 값 설정 함수
-void SongListsDialog::onDurationChanged(qint64 duration) // 재생 길이 변경 시그널을 받고 실행되는 슬롯 함수
-                                                         // setMaximum(static_cast<int>())은 재생바의 최대값을 설정함.
-{
-    ui->sliderPosition->setMaximum(static_cast<int>(duration));
-}
-
-// 재생바 이동 기능 함수
-void SongListsDialog::onPositionChanged(qint64 position) // 노래 재생 위치 변경 시그널을 받고 실행되는 슬롯 함수
-                                                         // setValue(static_cast<int>())는 재생바의 현재 위치를 설정함.
-{
-    ui->sliderPosition->setValue(static_cast<int>(position));
-}
-
-// 재생바 움직일 때 노래 재생 위치 변경하는 함수
-void SongListsDialog::onSliderMoved(int position) // 사용자가 재생바를 움직였을 때 시그널을 받고 실행되는 슬롯 함수
-                                                  // setPosition()는 노래 재생 위치를 설정함.
-{
-    player->setPosition(position);
-}
-
-// 사용자가 노래를 선택했을 때 노래의 행 번호를 가져오는 함수
+// 사용자가 리스트에서 노래를 선택했을 때 실행되는 함수
 void SongListsDialog::onSongSelected()
 {
-    int index = ui->listWidgetSongs->currentRow();
-    if (index < 0) return;
+    int index = ui->listWidgetSongs->currentRow(); // 현재 노래목록 리스트에서 사용자가 선택한 노래의 행 번호를 index에 저장함.
+    if (index < 0 || index >= (int)currentDisplayedSongs.size()) return; // 아무것도 선택안했을때와 선택범위가 index 범위를 벗어나면 크랙을 방지하기 위해 return으로 함수를 종료시킴.
 
-    if (index >= static_cast<int>(currentDisplayedSongs.size())) return;
+    const auto selected = currentDisplayedSongs[index]; // 지금 보여지고 있는 리스트에서 사용자가 선택한 노래의 index번호를 selected에 저장함. selected는 songview(제목, 가수 파일 경로) 타입
 
-    currentFilePath = QString::fromStdString(currentDisplayedSongs[index].filePath); // 가져온 노래 파일을 QMedia가 읽을 수 있게 파일을 변환
-    player->setSource(QUrl::fromLocalFile(currentFilePath));
+    const auto allSongs = library.getAllSongs(); // 라이브러리에 저장된 전체 곡 목록을 allSongs에 저장함.
+    int fullIndex = -1; // allSongs에서 사용자가 선택한 노래의 index 번호를 찾기위해 선언한 함수. 일단 -1로 저장.
+    for (int i = 0; i < (int)allSongs.size(); ++i) { // 전체 목록 allSongs에서 0부터  끝까지 순회하며 일치하는 곡을 찾기 시작.
+        if (allSongs[i].filePath == selected.filePath) { // 전체 목록 allSongs와 사용자가 선택한 노래의 index 번호가 맞는지 확인.
+            fullIndex = i; // 만약 일치한다면 fullIndex에 1로 저장.
+            break;
+        }
+    }
+    if (fullIndex < 0) return; // 끝까지 못찾으면 fullIndex는 아직 초기 값인 -1이니까 안전하게 종료.
 
+    // 기존 재생창 닫기 (자동 삭제)
+    if (playerWin) { // 기존에 playerwin이 열려잇는지 확인.
+        playerWin->close();   // 기존의 재생창을 닫는다.
+        playerWin = nullptr;  // 포인터 즉시 끊기(포인트를 null로 만들어서 이미 삭제될 창에 접근 하는걸 방지함.)
+    }
 
+    playerWin = new PlayerWindow(allSongs, fullIndex, this); // 새로운 재생창을 전체목록allSongs과 시작 인덱스fullIndex로 생성함
+    playerWin->setAttribute(Qt::WA_DeleteOnClose); // 창이 닫힐때 객채를 자동으로 삭제시킴.
 
-    // 선택하면 바로 재생하고 싶으면 아래 줄 켜면 됨
-    // player->play();
+    // playerwin 객체를 닫을 때 실행되는 슬롯으로 객채를 닫을 때 null로 만들어서 초기화를 진행함.
+    connect(playerWin, &QObject::destroyed, this, [this]() {
+        playerWin = nullptr;
+        });
+
+    // PlayerWindow에서 이전/다음으로 곡이 바뀔때 songChangedByPlayer시그널이 발생하면, SongListsDialog의 onPlayerSongChanged가 호출되도록 연결.
+    // 이 connect가 있으면 재생창에서 노래를 바꿀 때 목록창에서도 선택된 노래가 바뀐다.
+    connect(playerWin, &PlayerWindow::songChangedByPlayer,
+        this, &SongListsDialog::onPlayerSongChanged);
+
+    playerWin->show(); // 새로 만든 재생창을 띄움.
 }
 
 // 리스트에 전체 노래를 띄워주는 함수
@@ -217,6 +167,7 @@ void SongListsDialog::refreshList(const std::vector<SongView>& songsToShow)
         );
     }
 }
+
 // 사용자에게 노래 정보를 입력 받고 라이브러리에 추가하는 함수
 void SongListsDialog::onAddSongClicked()
 {
@@ -245,6 +196,7 @@ void SongListsDialog::onAddSongClicked()
     currentFilePath = filePath;
     player->setSource(QUrl::fromLocalFile(currentFilePath));
 }
+
 
 // 닫기 버튼 기능 함수
 void SongListsDialog::onCloseClicked()
@@ -288,4 +240,19 @@ void SongListsDialog::onSearchTextChanged(const QString& text)
 {
     Q_UNUSED(text); //텍스트 매개변수는 사용하지 않는다고 선언
     onSearchClicked(); // 사용자가 타이핑을 할때마다 바로 사용됨
+}
+
+// 재생창에서 노래가 바뀔때 실행되는 함수
+void SongListsDialog::onPlayerSongChanged(const QString& filePath, int fullIndex)
+{
+    Q_UNUSED(filePath);
+
+    ui->lineEditSearch->clear(); // 검색창에 들어가있는 텍스트를 지움.
+    refreshList(); // 전체 노래 목록을 표시함.
+
+    if (fullIndex >= 0 && fullIndex < ui->listWidgetSongs->count()) // fullIndex가 유효한 범위인지 검사. 음수거나 범위 밖은 모두 포함 안함.
+    {
+        ui->listWidgetSongs->setCurrentRow(fullIndex); // 리스트에서 현재 선택된 노래의 행 번호를 index로 fullIndex에 저장
+        ui->listWidgetSongs->scrollToItem(ui->listWidgetSongs->currentItem()); // 선택된 노래가 리스트 밖에 있을 수 있으니 스크롤을 자동으로 이동시킴.
+    }
 }
