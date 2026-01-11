@@ -53,7 +53,7 @@ public:
 	// 플레이리스트 관리
 	void createPlaylist(const std::string& playlistName); // 플레이리스트 생성
     void deletePlaylist(const std::string& playlistName); // 플레이리스트 삭제
-    PlaylistAddResult addSongToPlaylist(const std::string& playlistName, const std::string& title, const std::string& singer); // 플레이리스트에 노래 추가
+	PlaylistAddResult addSongToPlaylist(const std::string& playlistName, const std::string& title, const std::string& singer); // 플레이리스트에 노래 추가
     PlaylistRemoveResult removeSongFromPlaylist(const std::string& playlistName, const std::string& title, const std::string& singer); // 플레이리스트에서 노래 제거
 
 	// UI에 전달하기 위한 함수
