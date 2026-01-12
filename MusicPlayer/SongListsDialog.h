@@ -5,6 +5,9 @@
 #include "Library.h" // Library 클래스 선언을 가져옴. ( SongListsDialog 클래스에서 Library 클래스 사용 가능하게 함 )
 #include <QMediaPlayer> // 음악 재생을 위해 QMediaPlayer를 사용 가능하게 함.
 #include <QAudioOutput> // QMediaPlayer의 소리를 실제 스피커 등으로 출력 가능하게 함.
+#include "PlayerWindow.h"
+
+
 
 QT_BEGIN_NAMESPACE // Qt 전용 네임스페이스 (클래스 이름 충돌 방지)
 namespace Ui { class SongListsDialog; } // Ui 라는 네임스페이스안에 SongListsDialog 클래스가 있음을 선언하고 포인터 사용이 가능.
@@ -27,11 +30,7 @@ public:
 private slots: // 접근 지정자 슬롯 클래스 내부에서만 사용 가능
 
     // 재생 관련
-    void onPlayClicked(); // 재생 버튼 클릭 시 실행되는 슬롯 함수 선언 (구현은 SongListsDialogw.cpp에 있음)
-    void onPauseClicked(); // 일시정지 버튼 클릭 시 실행되는 슬롯 함수 선언 (구현은 SongListsDialog.cpp에 있음)
-    void onDurationChanged(qint64 duration); // 재생바 최대값 업데이트 슬롯 함수 선언 ( 구현은 SongListsDialog.cpp에 있음)
-    void onPositionChanged(qint64 position); // 재생바 위치 실시간으로 이동하는 슬롯 함수 선언 ( 구현은 SongListsDialog.cpp에 있음)
-    void onSliderMoved(int position); // 사용자가 이동한 위치로 음악이 이동되는 슬롯 함수 선언 ( 구현은 SongListsDialog.cpp에 있음)
+    void onPlayerSongChanged(const QString& filePath, int fullIndex);
 
     // 목록 추가 관련
     void onAddSongClicked(); // 사용자가 클릭하면 노래를 추가하는 슬롯 함수 선언 ( 구현은 SongListsDialog.cpp에 있음)
@@ -46,6 +45,7 @@ private slots: // 접근 지정자 슬롯 클래스 내부에서만 사용 가능
 
 private:
 
+    PlayerWindow* playerWin = nullptr;
     Ui::SongListsDialog* ui; // SongListsDialog.ui 파일에 있는 모든 위젯 접근을 위해 선언
     Library& library; // Library 객체 추가
     QString currentFilePath;      // 현재 선택된 곡 경로
