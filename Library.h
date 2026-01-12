@@ -20,12 +20,29 @@ enum class PlaylistRemoveResult // 플레이리스트에 노래 제거 결과 �
 	REMOVE_NOSONG, // 노래 없음
 	REMOVE_NOPLAYLIST // 플레이리스트 없음
 };
+/*
+부분검색 기능 관련 코드
+enum class MatchField // 검색 매칭 필드 열거형
+{ 
+	TITLE,
+	SINGER
+};
+
+
+struct SearchResult // 검색 결과 구조체
+{
+	size_t songIndex;   // songs 벡터 기준 인덱스
+	MatchField field;   // 어디서 매칭됐는지
+};
+*/
 struct SongView   // UI에 전달하기 위한 표시용 구조체
 {
     std::string title;
     std::string singer;
     std::string filePath;
 };
+
+
 class Library
 {
 private:                            
@@ -48,7 +65,8 @@ public:
     bool addSong(const std::string& title, const std::string& singer, const std::string& filePath); // 멤버 함수 선언(노래추가)
 	bool removeSong(const std::string& title, const std::string& singer); // 멤버 함수 선언(노래제거)
 	
-    //예정 vector<SearchResult> searchByTitle(const string& keyword);
+	//vector<SearchResult> searchByTitle(const string& keyword); 부분검색
+	//vector<SearchResult> searchBySinger(const string& keyword);
 
 	// 플레이리스트 관리
 	void createPlaylist(const std::string& playlistName); // 플레이리스트 생성

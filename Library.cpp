@@ -79,6 +79,36 @@ bool Library::removeSong(const string& title, const string& singer)
 	// 열거형 반환으로 변경 예정
 }
 // 헬퍼 함수 (부분 일치 검색 기능, 띄어쓰기 무시 기능 등 추가 필요)
+/*
+vector<SearchResult> Library::searchByTitle(const string& keyword) const
+{
+    vector<SearchResult> results;
+    if (keyword.empty()) return results;
+
+    for (size_t i = 0; i < songs.size(); ++i)
+    {
+        if (songs[i].getTitle().find(keyword) != string::npos)
+        {
+            results.push_back({ i, MatchField::TITLE });
+        }
+    }
+    return results;
+}
+vector<SearchResult> Library::searchBySinger(const string& keyword) const //가수로 검색
+{
+    vector<SearchResult> results;
+    if (keyword.empty()) return results; // 빈 검색어는 결과 없음
+    for (size_t i = 0; i < songs.size(); ++i)
+    {
+        if (songs[i].getSinger().find(keyword) != string::npos)
+        {
+            results.push_back({ i, MatchField::SINGER });
+        }
+    }
+    return results;
+}
+
+*/
 
 // 문자열을 소문자로 변환하는 헬퍼 함수 정의
 string Library::toLower(const string& str) const
