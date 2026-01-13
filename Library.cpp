@@ -25,11 +25,9 @@ vector<SongView> Library::searchByTitleView(const string& title) const
 {
     vector<SongView> results; //검색 결과를 담을 컨테이너
 
-    string keyword = toLower(title); // 검색어 표준화
-
     for (const auto& song : SongList) //노래 목록 순회
     {
-        if (toLower(song.getTitle()) == keyword) //제목이 검색어와 일치하는지 확인
+		if (containsIgnoreCase(song.getTitle(), title)) // 제목이 검색어와 일치하는지 확인
         {
             results.push_back({ song.getTitle(), song.getSinger(),song.getFilePath() }); // 일치하면 결과에 추가
         }
@@ -41,11 +39,9 @@ vector<SongView> Library::searchBySingerView(const string& singer) const //Libra
 {
     vector<SongView> results; //검색 결과를 담을 컨테이너
 
-    string keyword = toLower(singer); // 검색어 표준화
-
     for (const auto& song : SongList) //노래 목록 순회
     {
-        if (toLower(song.getSinger()) == keyword) //제목이 검색어와 일치하는지 확인
+        if (containsIgnoreCase(song.getSinger(), singer)) //제목이 검색어와 일치하는지 확인
         {
             results.push_back({ song.getTitle(), song.getSinger(),song.getFilePath() }); // 일치하면 결과에 추가
         }
@@ -79,47 +75,18 @@ bool Library::removeSong(const string& title, const string& singer)
 	// 열거형 반환으로 변경 예정
 }
 // 헬퍼 함수 (부분 일치 검색 기능, 띄어쓰기 무시 기능 등 추가 필요)
-/*
-vector<SearchResult> Library::searchByTitle(const string& keyword) const
-{
-    vector<SearchResult> results;
-    if (keyword.empty()) return results;
 
-    for (size_t i = 0; i < songs.size(); ++i)
-    {
-        if (songs[i].getTitle().find(keyword) != string::npos)
-        {
-            results.push_back({ i, MatchField::TITLE });
-        }
-    }
-    return results;
-}
-vector<SearchResult> Library::searchBySinger(const string& keyword) const //가수로 검색
+// 대소문자 구분 없이 포함 여부 확인 헬퍼 함수 정의
+bool Library::containsIgnoreCase(const string& text, const string& keyword) const
 {
-    vector<SearchResult> results;
-    if (keyword.empty()) return results; // 빈 검색어는 결과 없음
-    for (size_t i = 0; i < songs.size(); ++i)
-    {
-        if (songs[i].getSinger().find(keyword) != string::npos)
-        {
-            results.push_back({ i, MatchField::SINGER });
-        }
-    }
-    return results;
+    if (keyword.empty()) return false; // 빈 검색어는 결과 없음
+
+	string t = toLower(text);  // 대상 문자열을 소문자로 변환
+	string k = toLower(keyword);  // 검색어를 소문자로 변환
+
+    return t.find(k) != string::npos; // 부분일치
 }
 
-*/
-
-// 문자열을 소문자로 변환하는 헬퍼 함수 정의
-string Library::toLower(const string& str) const
-{
-    string lowerStr = str; // 입력 문자열을 복사
-    for (char& ch : lowerStr) // 문자열의 각 문자에 대해
-    {
-        ch = tolower(static_cast<unsigned char>(ch)); // 문자를 소문자로 변환
-    }
-    return lowerStr; // 변환된 문자열 반환
-}
 // 노래 존재 여부 확인 헬퍼 함수
 bool Library::hasSong(const string& title, const string& singer) const //노래가 이미 존재하는지 확인(중복등록 방지용)
 {

@@ -20,21 +20,7 @@ enum class PlaylistRemoveResult // 플레이리스트에 노래 제거 결과 �
 	REMOVE_NOSONG, // 노래 없음
 	REMOVE_NOPLAYLIST // 플레이리스트 없음
 };
-/*
-부분검색 기능 관련 코드
-enum class MatchField // 검색 매칭 필드 열거형
-{ 
-	TITLE,
-	SINGER
-};
 
-
-struct SearchResult // 검색 결과 구조체
-{
-	size_t songIndex;   // songs 벡터 기준 인덱스
-	MatchField field;   // 어디서 매칭됐는지
-};
-*/
 struct SongView   // UI에 전달하기 위한 표시용 구조체
 {
     std::string title;
@@ -48,10 +34,10 @@ class Library
 private:                            
 	std::vector<Song> SongList;            // 노래를 담을 컨테이너
 	std::vector<Playlist> Playlists;        // 플레이리스트를 담을 컨테이너
-	
-	// 문자열 변경 헬퍼 함수 선언
-	std::string toLower(const std::string& str) const; // 문자열을 소문자로 변환하는 헬퍼 함수
     
+	// 대소문자 구분 없이 포함 여부 확인 헬퍼 함수 선언
+	bool containsIgnoreCase(const string& text, const string& keyword) const; // 대소문자 구분 없이 포함 여부 확인 헬퍼 함수
+
 	// 노래 존재 여부 확인 헬퍼 함수
     bool hasSong(const std::string& title, const std::string& singer) const; //노래가 이미 존재하는지 확인
 
@@ -64,9 +50,6 @@ public:
 	// 노래 추가 및 제거
     bool addSong(const std::string& title, const std::string& singer, const std::string& filePath); // 멤버 함수 선언(노래추가)
 	bool removeSong(const std::string& title, const std::string& singer); // 멤버 함수 선언(노래제거)
-	
-	//vector<SearchResult> searchByTitle(const string& keyword); 부분검색
-	//vector<SearchResult> searchBySinger(const string& keyword);
 
 	// 플레이리스트 관리
 	void createPlaylist(const std::string& playlistName); // 플레이리스트 생성
