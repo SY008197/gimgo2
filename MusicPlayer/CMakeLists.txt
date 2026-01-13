@@ -33,6 +33,10 @@ set(PROJECT_SOURCES
     PlayerWindow.cpp
     PlayerWindow.h
     PlayerWindow.ui
+    Song.cpp
+    Song.h
+    Playlist.cpp
+    Playlist.h
 )
 
 qt_add_executable(${PROJECT_NAME} ${PROJECT_SOURCES})
