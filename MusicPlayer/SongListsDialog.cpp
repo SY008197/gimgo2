@@ -38,11 +38,15 @@ SongListsDialog::SongListsDialog(Library& libraryRef, QWidget* parent)
             }
 
             // 중복 방지 (title/singer 기준)
-            if (!library.hasSong(title.toStdString(), singer.toStdString())) {
-                library.addSong(title.toStdString(),
-                    singer.toStdString(),
-                    fullPath.toStdString());
+            if (!library.addSong(title.toStdString(),
+                singer.toStdString(),
+                fullPath.toStdString()))
+            {
+                // 이미 존재하거나 추가 실패
+                qWarning() << "Duplicate or failed to add song:"
+                    << title << "-" << singer;
             }
+
         };
 
     //  music 폴더 안 파일명만 적으면 됨
@@ -185,10 +189,12 @@ void SongListsDialog::onAddSongClicked()
     QString filePath = QFileDialog::getOpenFileName(this, "choose file path", "", "Audio Files (*.mp3 *.wav *.ogg)");
     if (filePath.isEmpty()) return;
 
-    library.addSong(                    // 사용자가 정보를 입력하면 라이브러리에 곡 추가
-        title.toStdString(),
+    if (!library.addSong(title.toStdString(),
         singer.toStdString(),
-        filePath.toStdString());
+        filePath.toStdString())) {
+        qWarning() << "Duplicate song:" << title << singer;
+    }
+
 
     refreshList();
 
