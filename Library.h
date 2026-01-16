@@ -34,7 +34,9 @@ class Library
 private:                            
 	std::vector<Song> SongList;            // 노래를 담을 컨테이너
 	std::vector<Playlist> Playlists;        // 플레이리스트를 담을 컨테이너
-    
+
+	std::string toLower(const string& str) const; // 문자열을 소문자로 변환하는 헬퍼 함수
+
 	// 대소문자 구분 없이 포함 여부 확인 헬퍼 함수 선언
 	bool containsIgnoreCase(const string& text, const string& keyword) const; // 대소문자 구분 없이 포함 여부 확인 헬퍼 함수
 
