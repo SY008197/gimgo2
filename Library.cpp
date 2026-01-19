@@ -168,7 +168,7 @@ PlaylistAddResult Library::addSongToPlaylist(const string& playlistName, const s
 		return PlaylistAddResult::ADD_DUPLICATE; // 중복된 노래 추가 시도 결과
 }
 
-PlaylistRemoveResult Library::removeSongFromPlaylist(const string& playlistName, const string& title, const :string& singer)
+PlaylistRemoveResult Library::removeSongFromPlaylist(const string& playlistName, const string& title, const string& singer)
 {
     Playlist* playlist = findPlaylist(playlistName);
     if (!playlist)
